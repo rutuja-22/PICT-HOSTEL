@@ -76,7 +76,7 @@ if (isset($_POST['submit'])) {
                             echo "<script>document.location='index.php';</script>";
                         }
                     } else {
-                        echo "<script>alert('You are not eligible!!!')</script>";
+                        echo "<script>alert('You are under 50km range of college so you are not eligible to apply!!!')</script>";
                         echo "<script>document.location='index.php';</script>";
                     }
                 } else {

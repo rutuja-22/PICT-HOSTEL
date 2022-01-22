@@ -35,7 +35,7 @@ $id = $_GET['id'];
 if ($conn->query($sql)) {
     echo "<script type='text/javascript'>alert('Your Record is deleted Successfully !!!');document.location='Registered_Students.php';</script>";
 } else {
-    echo "<script type='text/javascript'>alert('error');document.location='leavedetails.php';</script>";
+    echo "<script type='text/javascript'>alert('error');document.location='Registered_Students.php';</script>";
 }
 
 ?>

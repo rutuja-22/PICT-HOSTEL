@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3310
--- Generation Time: Jan 22, 2022 at 07:27 AM
+-- Host: localhost:3310
+-- Generation Time: Jan 22, 2022 at 03:24 PM
 -- Server version: 10.4.20-MariaDB
--- PHP Version: 8.0.8
+-- PHP Version: 8.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `bookings`
 --
-use hostel;
+
 CREATE TABLE `bookings` (
   `id` int(25) NOT NULL,
   `ref_id` int(11) DEFAULT NULL,
@@ -345,7 +345,8 @@ INSERT INTO `registration` (`id`, `F_name`, `L_name`, `reg_no`, `mobile_no`, `Fa
 (56, 'Sakshi', 'Kad', 'E2k19103676', '1234567890', 'Dipak', '1234567890', 'female', 'sakshikad51@gmail.com', 'FE', 'ENTC', 'Indian', 'Maharashtra', 'Pune', 440001, 'f08d753ba0ae5e4afbd83cd9a7b502e1', 'Yes', 3, '579939', '2022-01-11 18:12:51', 'Adhar card', 'SWOT.pdf', 'SWOT.pdf', '', 'No', '', ''),
 (57, 'Dhananjay', 'Thosar', 'C2K19106306', '8390833406', 'Kamlakar', '9604029326', 'male', 'dhananjaythosar2002@gmail.com', 'FE', 'COMP', 'Indian', 'Maharashtra', 'Pune', 440001, '051ff33015a1bfa27aef002344e4410b', 'Yes', 3, '651236', '2022-01-12 18:50:45', 'Adhar card', 'Dhananjay Thosar-Resume.pdf', 'generateReport (1).pdf', '', 'No', '101B', 'Attached'),
 (59, 'Dhananjay', 'Thosar', 'E2K19630610', '8390833406', 'Kamlakar', '9604029326', 'male', 'mess@gmail.com', 'FE', 'COMP', 'Indian', 'Maharashtra', 'Pune', 440001, '3aec5b3bc2bc68ac1938d596f667381a', 'Yes', 4, '249588', '2022-01-13 15:40:54', 'Adhar card', '', '', '', 'No', '', ''),
-(61, 'Dhananjay', 'Thosar', 'C2K19106385', '8390833406', 'Kamlakar', '9604029326', 'male', 'thosardhanu2@gmail.com', 'TE', 'COMP', 'Indian', 'Maharashtra', 'Pune', 440001, '051ff33015a1bfa27aef002344e4410b', 'Yes', 3, '704739', '2022-01-20 18:54:49', 'Adhar card', 'SY RESULT.pdf', 'generateReport (1).pdf', '', 'No', '', '');
+(61, 'Dhananjay', 'Thosar', 'C2K19106385', '8390833406', 'Kamlakar', '9604029326', 'male', 'thosardhanu2@gmail.com', 'TE', 'COMP', 'Indian', 'Maharashtra', 'Pune', 440001, '051ff33015a1bfa27aef002344e4410b', 'Yes', 3, '704739', '2022-01-20 18:54:49', 'Adhar card', 'SY RESULT.pdf', 'generateReport (1).pdf', '', 'No', '', ''),
+(62, 'Rutuja', 'Banginwar', 'C2K20207388', '8975458575', 'Sudhir', '9637911539', 'female', 'rutujasb123@gmail.com', 'FE', 'COMP', 'Indian', 'Maharashtra', 'Amravati', 444603, '2ffe178f482245d38b5da70d31a78bd2', 'Yes', 3, '441962', '2022-01-22 18:44:01', 'Adhar card', '31303_A6.pdf', '31303_A6.pdf', '', 'No', '', '');
 
 -- --------------------------------------------------------
 
@@ -659,7 +660,7 @@ ALTER TABLE `pincode`
 -- AUTO_INCREMENT for table `registration`
 --
 ALTER TABLE `registration`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `roomchange`

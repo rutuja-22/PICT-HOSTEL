@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
         $headers = "From: pictpurchasesystem@gmail.com";
 
         if (mail($email, $subject, $body, $headers)) {
-            echo "<script type='text/javascript'>alert('Link has been send to your registered Email!'); document.location='reset.php';</script>";
+            echo "<script type='text/javascript'>alert('Link has been sent to your registered Email!'); document.location='reset.php';</script>";
         }else {
             echo "<script type='text/javascript'>alert('Email sending fail!')</script>";
         }
