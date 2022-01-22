@@ -25,7 +25,7 @@ if (isset($_POST['submit'])) {
     $typedoc = $_POST['typedoc'];
     $extension = array('jpeg', 'jpg', 'png', 'gif', 'pdf');
 
-    $pdf1=$_FILES['pdf1']['name'];
+          $pdf1=$_FILES['pdf1']['name'];
           $pdf_type1=$_FILES['pdf1']['type'];
           $pdf_size1=$_FILES['pdf1']['size'];
           $pdf_tem_loc1=$_FILES['pdf1']['tmp_name'];
@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
           move_uploaded_file($pdf_tem_loc1,$pdf_store1);
 
 
-    $pdf2=$_FILES['pdf2']['name'];
+          $pdf2=$_FILES['pdf2']['name'];
           $pdf_type2=$_FILES['pdf2']['type'];
           $pdf_size2=$_FILES['pdf2']['size'];
           $pdf_tem_loc2=$_FILES['pdf2']['tmp_name'];
@@ -227,7 +227,7 @@ if (isset($_POST['submit'])) {
                             <input type="text" class="form-control" name="City" placeholder="City" pattern="[a-zA-Z]+" title="Must contain only alphabets" required />
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" name="pincode" placeholder="Pincode" required />
+                            <input type="text" class="form-control" name="pincode" placeholder="Pincode" pattern="([0-9]){6}" title="Must have 6 digits"required />
                         </div>
                     </div>
                 </div>

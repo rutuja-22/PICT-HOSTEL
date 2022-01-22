@@ -67,9 +67,15 @@ if (isset($_SESSION['id'])) {
                         </a>
                     </li>
                     <li class="nav-item ">
+                        <a class="nav-link" href="./room_reg.php">
+                            <i class="material-icons">store</i>
+                            <p>Room Registration</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
                         <a class="nav-link" href="#">
                             <i class="material-icons">content_paste</i>
-                            <p>Attendance</p>
+                            <p>Students Attendance</p>
                         </a>
                     </li>
                     <li class="nav-item ">
@@ -79,7 +85,7 @@ if (isset($_SESSION['id'])) {
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="./feestatus.php">
                             <i class="material-icons">bubble_chart</i>
                             <p>Fees Status</p>
                         </a>
@@ -92,10 +98,10 @@ if (isset($_SESSION['id'])) {
                         </a>
                     </li>
                     <li class="nav-item ">
-                            <a class="nav-link" href="./refunding.php">
-                                <i class="material-icons">circle</i>
-                                <p>Refund</p>
-                            </a>
+                        <a class="nav-link" href="./refunding.php">
+                            <i class="material-icons">circle</i>
+                            <p>Refund</p>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -190,8 +196,8 @@ if (isset($_SESSION['id'])) {
                                                         <td><center><?php echo "<a  target='_blank' href=\"pdfshow2.php?ids=$row[id]\">View</a>";?></center></td>
                                                         
                                                         <td>
-                                                            <button  type="button" class="btn-success"><?php echo"<a style='outline-style: none; color:white;' href=\"accept.php?sr_no=$row[id]\" onClick=\"return confirm('Are you sure you want to Accept?')\">Accept</a>";?></button>
-                                                            <button type="button" class="btn-danger"><?php echo"<a style='outline-style: none; color:white;' href=\"delete_student.php?sr_no=$row[id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a>";?></button>
+                                                            <button  type="button" class="btn-success"><?php echo"<a style='outline-style: none; color:white;' href=\"accept.php?id=$row[id]\" onClick=\"return confirm('Are you sure you want to Accept?')\">Accept</a>";?></button>
+                                                            <button type="button" class="btn-danger"><?php echo"<a style='outline-style: none; color:white;' href=\"delete_student.php?id=$row[id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a>";?></button>
                                                         </td>
                                                       
 

@@ -86,19 +86,14 @@ if (isset($_POST['submit'])) {
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="./fees.php">
                             <i class="material-icons">bubble_chart</i>
                             <p>Fees Status</p>
                         </a>
                     </li>
-                    <!-- <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <i class="material-icons">location_ons</i>
-                                <p>Mess </p>
-                            </a>
-                        </li> -->
+
                     <li class="nav-item ">
-                        <a class="nav-link" href="./bookhostel.php">
+                        <a class="nav-link" href="./checkout.php">
                             <i class="material-icons">content_copy</i>
                             <p>Book Hostel </p>
                         </a>

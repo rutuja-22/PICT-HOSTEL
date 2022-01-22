@@ -60,6 +60,12 @@ if (isset($_SESSION['id'])) {
                         </a>
                     </li>
                     <li class="nav-item ">
+                        <a class="nav-link" href="./room_reg.php">
+                            <i class="material-icons">store</i>
+                            <p>Room Registration</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
                         <a class="nav-link" href="#">
                             <i class="material-icons">content_paste</i>
                             <p>Students Attendance</p>
@@ -72,7 +78,7 @@ if (isset($_SESSION['id'])) {
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="./feestatus.php">
                             <i class="material-icons">bubble_chart</i>
                             <p>Fees Status</p>
                         </a>
@@ -138,315 +144,513 @@ if (isset($_SESSION['id'])) {
             <!-- End Navbar -->
             <div class="content">
                 <div class="container-fluid">
-
+                    <a href="#ferefundbtn">
+                        <button type="submit" name="submit" class="btn btn-primary">FE REFUND</button>
+                    </a>
+                    &nbsp;
+                    &nbsp;
+                    <a href="#serefundbtn">
+                        <button type="submit" name="submit" class="btn btn-primary">SE REFUND</button>
+                    </a>
+                    &nbsp;
+                    &nbsp;
+                    <a href="#terefundbtn">
+                        <button type="submit" name="submit" class="btn btn-primary">TE REFUND</button>
+                    </a>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-
                                 <div class="card-header card-header-primary">
                                     <h4 class="card-title">Refund Request</h4>
-                                    <!-- <p class="card-category">Complete your profile</p> -->
                                 </div>
-                                <div class="card-body">
-                                    <div class="table-responsive dt-responsive">
 
-                                        <table id="example" class="table table-striped table-bordered" style="width:100%">
-                                            <thead>
-                                                <tr>
-                                                    <th>Sr No.</th>
-                                                    <th>Room No</th>
-                                                    <th>Status</th>
-                                                    <th>Details</th>
-                                                    <th>Registration Id</th>
-                                                    <th>Occupied By</th>
-                                                    <th>City</th>
-                                                    <th>Refund Request</th>
-                                                    <th><b>Action</b></th>
-                                                    <!-- <th>Action</th> -->
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                <?php
-
-                                                $sql = "SELECT * from bookings2 where cancel_req='Yes'";
-                                                $result = $conn->query($sql);
-                                                $i = 1;
-                                                while ($row = $result->fetch_assoc()) {
-
-                                                ?>
-
+                                <section id="ferefundbtn">
+                                    <div class="card-body">
+                                        <div class="table-responsive dt-responsive">
+                                            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                                <thead>
                                                     <tr>
-                                                        <!-- <td><?php echo $i; ?></td> -->
-                                                        <td>
-                                                            <?php echo $i; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $row['room_no']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $row['status']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $row['details']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $row['regid']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $row['name']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $row['city']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $row['cancel_req']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <form action="add_room2.php" method="get">
-                                                                <button type="button" name="submit" class="btn btn-success"><i class="fa fa-check-square-o"></i>
-                                                                    <?php echo "<a href=\"add_room2.php?room_no=$row[room_no]\">Add</a>"; ?></button>
-                                                            </form>
-                                                        </td>
-
+                                                        <th>Sr No.</th>
+                                                        <th>Room No</th>
+                                                        <th>Status</th>
+                                                        <th>Details</th>
+                                                        <th>Registration Id</th>
+                                                        <th>Occupied By</th>
+                                                        <th>City</th>
+                                                        <th>Refund Request</th>
+                                                        <th><b>Action</b></th>
                                                     </tr>
+                                                </thead>
+                                                <tbody>
 
-                                                <?php $i++;
-                                                }  ?>
+                                                    <?php
 
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>Sr No.</th>
-                                                    <th>Room No</th>
-                                                    <th>Status</th>
-                                                    <th>Details</th>
-                                                    <th>Registration Id</th>
-                                                    <th>Occupied By</th>
-                                                    <th>City</th>
-                                                    <th>Refund Request</th>
-                                                    <th>Action</th>
-                                                    <!-- <th>Action</th> -->
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
-                                </div>
+                                                    $sql = "SELECT * FROM bookings2 WHERE cancel_req='Yes'";
+                                                    $result = mysqli_query($conn, $sql);
+                                                    $i = 1;
+                                                    if ($result) {
+                                                        while ($row = mysqli_fetch_assoc($result)) {
+
+                                                    ?>
+
+
+                                                            <tr>
+                                                                <td>
+                                                                    <?php echo $i; ?>
+                                                                </td>
+                                                                <td>
+                                                                    <?php echo $row['room_no']; ?>
+                                                                </td>
+                                                                <td>
+                                                                    <?php echo $row['status']; ?>
+                                                                </td>
+                                                                <td>
+                                                                    <?php echo $row['details']; ?>
+                                                                </td>
+                                                                <td>
+                                                                    <?php echo $row['regid']; ?>
+                                                                </td>
+                                                                <td>
+                                                                    <?php echo $row['name']; ?>
+                                                                </td>
+                                                                <td>
+                                                                    <?php echo $row['city']; ?>
+                                                                </td>
+                                                                <td>
+                                                                    <?php echo $row['cancel_req']; ?>
+                                                                </td>
+                                                                <td>
+                                                                    <form action="add_room.php" method="get">
+                                                                        <button type="button" name="submit" class="btn btn-success"><i class="fa fa-check-square-o"></i>
+                                                                            <?php echo "<a href=\"add_room.php?room_no=$row[room_no]\">Add</a>"; ?></button>
+                                                                    </form>
+                                                                </td>
+
+                                                            </tr>
+
+                                                    <?php $i++;
+                                                        }
+                                                    } ?>
+
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Sr No.</th>
+                                                        <th>Room No</th>
+                                                        <th>Status</th>
+                                                        <th>Details</th>
+                                                        <th>Registration Id</th>
+                                                        <th>Occupied By</th>
+                                                        <th>City</th>
+                                                        <th>Refund Request</th>
+                                                        <th>Action</th>
+                                                        <!-- <th>Action</th> -->
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                </section>
+
+                                <section id="serefundbtn">
+                                    <div class="card">
+                                        <div class="card-header card-header-primary">
+                                            <h4 class="card-title">Refund Request</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive dt-responsive">
+
+                                                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Sr No.</th>
+                                                            <th>Room No</th>
+                                                            <th>Status</th>
+                                                            <th>Details</th>
+                                                            <th>Registration Id</th>
+                                                            <th>Occupied By</th>
+                                                            <th>City</th>
+                                                            <th>Refund Request</th>
+                                                            <th><b>Action</b></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <?php
+
+                                                        $sql = "SELECT * FROM sebookings2 WHERE cancel_req='Yes'";
+                                                        $result = mysqli_query($conn, $sql);
+                                                        $i = 1;
+                                                        if ($result) {
+                                                            while ($row = mysqli_fetch_assoc($result)) {
+
+                                                        ?>
+
+
+                                                                <tr>
+                                                                    <td>
+                                                                        <?php echo $i; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row['room_no']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row['status']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row['details']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row['regid']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row['name']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row['city']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row['cancel_req']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <form action="add_room.php" method="get">
+                                                                            <button type="button" name="submit" class="btn btn-success"><i class="fa fa-check-square-o"></i>
+                                                                                <?php echo "<a href=\"add_room.php?room_no=$row[room_no]\">Add</a>"; ?></button>
+                                                                        </form>
+                                                                    </td>
+
+                                                                </tr>
+
+                                                        <?php $i++;
+                                                            }
+                                                        } ?>
+
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>Sr No.</th>
+                                                            <th>Room No</th>
+                                                            <th>Status</th>
+                                                            <th>Details</th>
+                                                            <th>Registration Id</th>
+                                                            <th>Occupied By</th>
+                                                            <th>City</th>
+                                                            <th>Refund Request</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                </section>
+                                <section id="terefundbtn">
+
+                                    <div class="card">
+                                        <div class="card-header card-header-primary">
+                                            <h4 class="card-title">Refund Request</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive dt-responsive">
+
+                                                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Sr No.</th>
+                                                            <th>Room No</th>
+                                                            <th>Status</th>
+                                                            <th>Details</th>
+                                                            <th>Registration Id</th>
+                                                            <th>Occupied By</th>
+                                                            <th>City</th>
+                                                            <th>Refund Request</th>
+                                                            <th><b>Action</b></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <?php
+
+                                                        $sql = "SELECT * FROM tebookings2 WHERE cancel_req='Yes'";
+                                                        $result = mysqli_query($conn, $sql);
+                                                        $i = 1;
+                                                        if ($result) {
+
+                                                            while ($row = mysqli_fetch_assoc($result)) {
+
+                                                        ?>
+
+
+                                                                <tr>
+
+                                                                    <td>
+                                                                        <?php echo $i; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row['room_no']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row['status']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row['details']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row['regid']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row['name']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row['city']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row['cancel_req']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <form action="add_room.php" method="get">
+                                                                            <button type="button" name="submit" class="btn btn-success"><i class="fa fa-check-square-o"></i>
+                                                                                <?php echo "<a href=\"add_room.php?room_no=$row[room_no]\">Add</a>"; ?></button>
+                                                                        </form>
+                                                                    </td>
+
+                                                                </tr>
+
+                                                        <?php $i++;
+                                                            }
+                                                        } ?>
+
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>Sr No.</th>
+                                                            <th>Room No</th>
+                                                            <th>Status</th>
+                                                            <th>Details</th>
+                                                            <th>Registration Id</th>
+                                                            <th>Occupied By</th>
+                                                            <th>City</th>
+                                                            <th>Refund Request</th>
+                                                            <th>Action</th>
+
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                </section>
                             </div>
                         </div>
                     </div>
-                    <footer class="footer">
-                        <div class="container-fluid">
-                            <nav class="float-left">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            PICT HOSTEL
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </nav>
-                            <div class="copyright float-right" id="date">
-                                , made with <i class="material-icons">favorite</i> by
-                                <a href="#" target="_blank"> SuRd</a>
-                            </div>
-                        </div>
-                    </footer>
-                    <script>
-                        const x = new Date().getFullYear();
-                        let date = document.getElementById('date');
-                        date.innerHTML = '&copy; ' + x + date.innerHTML;
-                    </script>
                 </div>
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <nav class="float-left">
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        PICT HOSTEL
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </nav>
+                        <div class="copyright float-right" id="date">
+                            , made with <i class="material-icons">favorite</i> by
+                            <a href="#" target="_blank"> SuRd</a>
+                        </div>
+                    </div>
+                </footer>
+                <script>
+                    const x = new Date().getFullYear();
+                    let date = document.getElementById('date');
+                    date.innerHTML = '&copy; ' + x + date.innerHTML;
+                </script>
             </div>
+        </div>
 
-            <!--   Core JS Files   -->
-            <script src="../assets/js/core/jquery.min.js"></script>
-            <script src="../assets/js/core/popper.min.js"></script>
-            <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
-            <script src="https://unpkg.com/default-passive-events"></script>
-            <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-            <!-- Place this tag in your head or just before your close body tag. -->
-            <script async defer src="https://buttons.github.io/buttons.js"></script>
-            <!--  Google Maps Plugin    -->
-            <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-            <!-- Chartist JS -->
-            <script src="../assets/js/plugins/chartist.min.js"></script>
-            <!--  Notifications Plugin    -->
-            <script src="../assets/js/plugins/bootstrap-notify.js"></script>
-            <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-            <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
-            <script src="../assets/demo/demo.js"></script>
-            <script>
-                $(document).ready(function() {
-                    $().ready(function() {
-                        $sidebar = $('.sidebar');
+        <!--   Core JS Files   -->
+        <script src="../assets/js/core/jquery.min.js"></script>
+        <script src="../assets/js/core/popper.min.js"></script>
+        <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
+        <script src="https://unpkg.com/default-passive-events"></script>
+        <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+        <!-- Place this tag in your head or just before your close body tag. -->
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!--  Google Maps Plugin    -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+        <!-- Chartist JS -->
+        <script src="../assets/js/plugins/chartist.min.js"></script>
+        <!--  Notifications Plugin    -->
+        <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+        <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
+        <script src="../assets/demo/demo.js"></script>
+        <script>
+            $(document).ready(function() {
+                $().ready(function() {
+                    $sidebar = $('.sidebar');
 
-                        $sidebar_img_container = $sidebar.find('.sidebar-background');
+                    $sidebar_img_container = $sidebar.find('.sidebar-background');
 
-                        $full_page = $('.full-page');
+                    $full_page = $('.full-page');
 
-                        $sidebar_responsive = $('body > .navbar-collapse');
+                    $sidebar_responsive = $('body > .navbar-collapse');
 
-                        window_width = $(window).width();
+                    window_width = $(window).width();
 
-                        $('.fixed-plugin a').click(function(event) {
+                    $('.fixed-plugin a').click(function(event) {
 
-                            if ($(this).hasClass('switch-trigger')) {
-                                if (event.stopPropagation) {
-                                    event.stopPropagation();
-                                } else if (window.event) {
-                                    window.event.cancelBubble = true;
-                                }
+                        if ($(this).hasClass('switch-trigger')) {
+                            if (event.stopPropagation) {
+                                event.stopPropagation();
+                            } else if (window.event) {
+                                window.event.cancelBubble = true;
                             }
-                        });
+                        }
+                    });
 
-                        $('.fixed-plugin .active-color span').click(function() {
-                            $full_page_background = $('.full-page-background');
+                    $('.fixed-plugin .active-color span').click(function() {
+                        $full_page_background = $('.full-page-background');
 
-                            $(this).siblings().removeClass('active');
-                            $(this).addClass('active');
+                        $(this).siblings().removeClass('active');
+                        $(this).addClass('active');
 
-                            var new_color = $(this).data('color');
+                        var new_color = $(this).data('color');
 
-                            if ($sidebar.length != 0) {
-                                $sidebar.attr('data-color', new_color);
-                            }
+                        if ($sidebar.length != 0) {
+                            $sidebar.attr('data-color', new_color);
+                        }
 
-                            if ($full_page.length != 0) {
-                                $full_page.attr('filter-color', new_color);
-                            }
+                        if ($full_page.length != 0) {
+                            $full_page.attr('filter-color', new_color);
+                        }
 
-                            if ($sidebar_responsive.length != 0) {
-                                $sidebar_responsive.attr('data-color', new_color);
-                            }
-                        });
+                        if ($sidebar_responsive.length != 0) {
+                            $sidebar_responsive.attr('data-color', new_color);
+                        }
+                    });
 
-                        $('.fixed-plugin .background-color .badge').click(function() {
-                            $(this).siblings().removeClass('active');
-                            $(this).addClass('active');
+                    $('.fixed-plugin .background-color .badge').click(function() {
+                        $(this).siblings().removeClass('active');
+                        $(this).addClass('active');
 
-                            var new_color = $(this).data('background-color');
+                        var new_color = $(this).data('background-color');
 
-                            if ($sidebar.length != 0) {
-                                $sidebar.attr('data-background-color', new_color);
-                            }
-                        });
+                        if ($sidebar.length != 0) {
+                            $sidebar.attr('data-background-color', new_color);
+                        }
+                    });
 
-                        $('.fixed-plugin .img-holder').click(function() {
-                            $full_page_background = $('.full-page-background');
+                    $('.fixed-plugin .img-holder').click(function() {
+                        $full_page_background = $('.full-page-background');
 
-                            $(this).parent('li').siblings().removeClass('active');
-                            $(this).parent('li').addClass('active');
+                        $(this).parent('li').siblings().removeClass('active');
+                        $(this).parent('li').addClass('active');
 
 
-                            var new_image = $(this).find("img").attr('src');
+                        var new_image = $(this).find("img").attr('src');
 
-                            if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-                                $sidebar_img_container.fadeOut('fast', function() {
-                                    $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-                                    $sidebar_img_container.fadeIn('fast');
-                                });
-                            }
-
-                            if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-                                var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
-
-                                $full_page_background.fadeOut('fast', function() {
-                                    $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-                                    $full_page_background.fadeIn('fast');
-                                });
-                            }
-
-                            if ($('.switch-sidebar-image input:checked').length == 0) {
-                                var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
-                                var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
-
+                        if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                            $sidebar_img_container.fadeOut('fast', function() {
                                 $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                                $sidebar_img_container.fadeIn('fast');
+                            });
+                        }
+
+                        if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                            $full_page_background.fadeOut('fast', function() {
                                 $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                                $full_page_background.fadeIn('fast');
+                            });
+                        }
+
+                        if ($('.switch-sidebar-image input:checked').length == 0) {
+                            var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
+                            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                            $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                            $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                        }
+
+                        if ($sidebar_responsive.length != 0) {
+                            $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
+                        }
+                    });
+
+                    $('.switch-sidebar-image input').change(function() {
+                        $full_page_background = $('.full-page-background');
+
+                        $input = $(this);
+
+                        if ($input.is(':checked')) {
+                            if ($sidebar_img_container.length != 0) {
+                                $sidebar_img_container.fadeIn('fast');
+                                $sidebar.attr('data-image', '#');
                             }
 
-                            if ($sidebar_responsive.length != 0) {
-                                $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
-                            }
-                        });
-
-                        $('.switch-sidebar-image input').change(function() {
-                            $full_page_background = $('.full-page-background');
-
-                            $input = $(this);
-
-                            if ($input.is(':checked')) {
-                                if ($sidebar_img_container.length != 0) {
-                                    $sidebar_img_container.fadeIn('fast');
-                                    $sidebar.attr('data-image', '#');
-                                }
-
-                                if ($full_page_background.length != 0) {
-                                    $full_page_background.fadeIn('fast');
-                                    $full_page.attr('data-image', '#');
-                                }
-
-                                background_image = true;
-                            } else {
-                                if ($sidebar_img_container.length != 0) {
-                                    $sidebar.removeAttr('data-image');
-                                    $sidebar_img_container.fadeOut('fast');
-                                }
-
-                                if ($full_page_background.length != 0) {
-                                    $full_page.removeAttr('data-image', '#');
-                                    $full_page_background.fadeOut('fast');
-                                }
-
-                                background_image = false;
-                            }
-                        });
-
-                        $('.switch-sidebar-mini input').change(function() {
-                            $body = $('body');
-
-                            $input = $(this);
-
-                            if (md.misc.sidebar_mini_active == true) {
-                                $('body').removeClass('sidebar-mini');
-                                md.misc.sidebar_mini_active = false;
-
-                                $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
-
-                            } else {
-
-                                $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
-
-                                setTimeout(function() {
-                                    $('body').addClass('sidebar-mini');
-
-                                    md.misc.sidebar_mini_active = true;
-                                }, 300);
+                            if ($full_page_background.length != 0) {
+                                $full_page_background.fadeIn('fast');
+                                $full_page.attr('data-image', '#');
                             }
 
-                            // we simulate the window Resize so the charts will get updated in realtime.
-                            var simulateWindowResize = setInterval(function() {
-                                window.dispatchEvent(new Event('resize'));
-                            }, 180);
+                            background_image = true;
+                        } else {
+                            if ($sidebar_img_container.length != 0) {
+                                $sidebar.removeAttr('data-image');
+                                $sidebar_img_container.fadeOut('fast');
+                            }
 
-                            // we stop the simulation of Window Resize after the animations are completed
+                            if ($full_page_background.length != 0) {
+                                $full_page.removeAttr('data-image', '#');
+                                $full_page_background.fadeOut('fast');
+                            }
+
+                            background_image = false;
+                        }
+                    });
+
+                    $('.switch-sidebar-mini input').change(function() {
+                        $body = $('body');
+
+                        $input = $(this);
+
+                        if (md.misc.sidebar_mini_active == true) {
+                            $('body').removeClass('sidebar-mini');
+                            md.misc.sidebar_mini_active = false;
+
+                            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+                        } else {
+
+                            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+
                             setTimeout(function() {
-                                clearInterval(simulateWindowResize);
-                            }, 1000);
+                                $('body').addClass('sidebar-mini');
 
-                        });
+                                md.misc.sidebar_mini_active = true;
+                            }, 300);
+                        }
+
+                        // we simulate the window Resize so the charts will get updated in realtime.
+                        var simulateWindowResize = setInterval(function() {
+                            window.dispatchEvent(new Event('resize'));
+                        }, 180);
+
+                        // we stop the simulation of Window Resize after the animations are completed
+                        setTimeout(function() {
+                            clearInterval(simulateWindowResize);
+                        }, 1000);
+
                     });
                 });
-            </script>
-            <script>
-                $(document).ready(function() {
-                    // Javascript method's body can be found in assets/js/demos.js
-                    md.initDashboardPageCharts();
+            });
+        </script>
+        <script>
+            $(document).ready(function() {
+                // Javascript method's body can be found in assets/js/demos.js
+                md.initDashboardPageCharts();
 
-                });
-            </script>
+            });
+        </script>
 </body>
 
 </html>

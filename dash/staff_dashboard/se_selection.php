@@ -1,0 +1,22 @@
+<?php
+include 'config.php';
+session_start();
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $sql = "select * from registration where id=" . $id;
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        if($row['gender']=='male' ){
+            echo '<script>document.location="se_room_allocation.php";</script>';
+        }
+        elseif($row['gender']=='female' ){
+            echo '<script>document.location="se_room_allocation2.php";</script>';
+        }
+        
+    } else {
+        $errorMsg = 'Could not Find Any Record';
+    }
+}
+
+?>

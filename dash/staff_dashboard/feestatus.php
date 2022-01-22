@@ -1,6 +1,13 @@
+<?php session_start();
+
+if (!isset($_SESSION['id'])) {
+    header('Location: login.php');
+}
+?>
+
 <?php
 include('config.php');
-session_start();
+
 if (isset($_SESSION['id'])) {
     $id = $_SESSION['id'];
     $sql = "select * from registration where id=" . $id;
@@ -29,6 +36,12 @@ if (isset($_SESSION['id'])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- CSS Files -->
     <link href="../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="../assets/demo/demo.css" rel="stylesheet" />
+    <!--Bootstrap for jquary tables-->
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet" /> -->
+    <link href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
 
 </head>
 
@@ -41,46 +54,53 @@ if (isset($_SESSION['id'])) {
                 </a></div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="nav-item active  ">
+                    <li class="nav-item  ">
                         <a class="nav-link" href="./dashboard.php">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="./user.php">
+                        <a class="nav-link" href="./Registered_Students.php">
                             <i class="material-icons">person</i>
-                            <p>Profile</p>
+                            <p>Registered Students</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./room_reg.php">
+                            <i class="material-icons">store</i>
+                            <p>Room Registration</p>
                         </a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="#">
                             <i class="material-icons">content_paste</i>
-                            <p>Attendance</p>
+                            <p>Students Attendance</p>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="./leavedetails.php">
+                        <a class="nav-link" href="./sleavedetails.php">
                             <i class="material-icons">library_books</i>
                             <p>Leave Details</p>
                         </a>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="./fees.php">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="./feestatus.php">
                             <i class="material-icons">bubble_chart</i>
                             <p>Fees Status</p>
                         </a>
                     </li>
-                    <!-- <li class="nav-item ">
-                        <a class="nav-link" href="#">
-                            <i class="material-icons">location_ons</i>
-                            <p>Mess </p>
-                        </a>
-                        </li> -->
+
                     <li class="nav-item ">
-                        <a class="nav-link" href="./checkout.php">
-                            <i class="material-icons">content_copy</i>
-                            <p>Book Hostel </p>
+                        <a class="nav-link" href="./selection.php">
+                            <i class="material-icons">store</i>
+                            <p>Allocated Rooms</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./refunding.php">
+                            <i class="material-icons">circle</i>
+                            <p>Refund</p>
                         </a>
                     </li>
                 </ul>
@@ -91,7 +111,7 @@ if (isset($_SESSION['id'])) {
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
+                        <a class="navbar-brand" href="javascript:void(0)">Students Profile</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
                         <span class="sr-only">Toggle navigation</span>
@@ -102,15 +122,11 @@ if (isset($_SESSION['id'])) {
                     <div class="collapse navbar-collapse justify-content-end">
                         <form class="navbar-form">
                             <div class="input-group no-border">
-                                <a class="navbar-brand" href="javascript:void(0)"><strong>Welcome
-                                        <?php echo $row['F_name'];
-                                        echo " ";
-                                        echo $row['L_name']; ?></strong></a>
+                                <a class="navbar-brand" href="javascript:void(0)"><strong>Welcome <?php echo $row['email']; ?></strong></a>
                                 <div class="ripple-container"></div>
                                 </button>
                             </div>
                         </form>
-
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -120,14 +136,12 @@ if (isset($_SESSION['id'])) {
                                     </p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                                    <!-- <a class="dropdown-item" href="./user.php">Profile</a> -->
+                                    <!-- <a class="dropdown-item" href="./#">Profile</a> -->
                                     <!-- <div class="dropdown-divider"></div> -->
                                     <a class="dropdown-item" href="logout.php">Log out</a>
                                 </div>
                             </li>
                         </ul>
-
-
                     </div>
                 </div>
             </nav>
@@ -135,240 +149,211 @@ if (isset($_SESSION['id'])) {
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header card-header-warning card-header-icon">
-                                    <div class="card-icon">
-                                        <i class="material-icons">person</i>
-                                    </div>
-                                    <p class="card-category">Profile</p>
-                                    <h3 class="card-title">
-                                        <small></small>
-                                    </h3>
-                                </div>
-                                <div class="card-footer">
-                                    <!--<div class="stats">
-                                        <i class="material-icons text-warning">warning</i>
-                                        <a href="#pablo" class="warning-link">Get More Space...</a>
-                                    </div>-->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header card-header-success card-header-icon">
-                                    <div class="card-icon">
-                                        <i class="material-icons">store</i>
-                                    </div>
-                                    <p class="card-category">Rooms</p>
-                                    <h3 class="card-title"></h3>
-                                </div>
-                                <div class="card-footer">
-                                    <!--<div class="stats">
-                                        <i class="material-icons">date_range</i> Last 24 Hours
-                                    </div>-->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header card-header-danger card-header-icon">
-                                    <div class="card-icon">
-                                        <i class="material-icons">list</i>
-                                    </div>
-                                    <p class="card-category">Attendance</p>
-                                    <h3 class="card-title"></h3>
-                                </div>
-                                <div class="card-footer">
-                                    <!-- <div class="stats">
-                                        <i class="material-icons">local_offer</i> Tracked from Github
-                                    </div>-->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header card-header-info card-header-icon">
-                                    <div class="card-icon">
-                                        <i class="material-icons">menu</i>
-                                    </div>
-                                    <p class="card-category">Mess Menu</p>
-                                    <h3 class="card-title"></h3>
-                                </div>
-                                <div class="card-footer">
-                                    <!-- <div class="stats">
-                                        <i class="material-icons">local_offer</i> Tracked from Github
-                                    </div>-->
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-12">
+                        <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-primary">
-                                    <h4 class="card-title">Important Notice</h4>
-                                    <!--<p class="card-category">New employees on 15th September, 2016</p>-->
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <!-- <div class="card"> -->
-
-                                        <div class="card-body">
-                                            <div class="table-responsive">
-                                                <div class="panel">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-striped title1">
-                                                            <tr style="color:black">
-                                                                <td><b>S.N.</b></td>
-                                                                <td><b>Notice Title</b></td>
-                                                                <td><b>Description</b></td>
-                                                                <!-- <td><b>Date</b></td> -->
-                                                            </tr>
-                                                            <?php
-
-                                                            $sql = "SELECT * from notice";
-                                                            $result = $conn->query($sql);
-
-                                                            $i = 1;
-                                                            while ($row = $result->fetch_assoc()) {
-                                                                //print_r($row) 
-
-                                                            ?>
-                                                                <tr>
-                                                                    <!-- <td><?php $i; ?></td> -->
-
-                                                                    <td>
-                                                                        <?php echo $i; ?>
-                                                                    </td>
-                                                                    <td>
-                                                                        <?php echo $row['title']; ?>
-                                                                    </td>
-
-                                                                    <td>
-                                                                        <?php echo $row['description']; ?>
-                                                                    </td>
-                                                                    <!-- <td>
-                                                                        <!?php// echo $row['date1']; ?>
-                                                                    </td> -->
-
-
-
-                                                                </tr>
-                                                            <?php $i++;
-                                                            }
-                                                            ?>
-
-
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- </div> -->
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-12">
-                            <div class="card">
-                                <div class="card-header card-header-primary">
-                                    <h4 class="card-title">Canteen's Todays Menu</h4>
-
-                                    <!--<p class="card-category">New employees on 15th September, 2016</p>-->
+                                    <h4 class="card-title">Reqested to access Hostel </h4>
+                                    <!-- <p class="card-category">Complete your profile</p> -->
                                 </div>
                                 <div class="card-body">
-                                    <div class="table-responsive">
-                                        <div class="panel">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped title1">
-                                                    <tr style="color:black">
-                                                        <td><b>S.N.</b></td>
-                                                        <td><b>Menu Name</b></td>
-                                                        <td><b>Category</b></td>
-                                                        <!-- <td><b>Edit/Delete</b></td> -->
-                                                    </tr>
-                                                    <?php
+                                    <div class="table-responsive dt-responsive">
+                                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th><b> Sr. No </b></th>
+                                                    <th><b>Register Number</b></th>
+                                                    <th><b>Name</b></th>
+                                                    <th><b>Mobile Number</b></th>
+                                                    <th><b>Email</b></th>
+                                                    <th><b>Type of Room</b></th>
+                                                    <th><b>Fee Reciept</b></th>
+                                                    <th><b>Action</b></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 
-                                                    $sql = "SELECT * from menu";
-                                                    $result = $conn->query($sql);
+                                                <?php
 
-                                                    $i = 1;
-                                                    while ($row = $result->fetch_assoc()) {
-                                                        //print_r($row) 
+                                                $sql = "SELECT * from registration WHERE cat_id=3";
+                                                $result = $conn->query($sql);
+                                                $i = 1;
 
-                                                    ?>
-                                                        <tr>
-                                                            <!-- <td><?php $i; ?></td> -->
+                                                while ($row = $result->fetch_assoc()) {
+                                                    if ($row['hostel_fee'] != '') {
+                                                        if ($row['feespaid'] == 'No') {
 
-                                                            <td>
-                                                                <?php echo $i; ?>
-                                                            </td>
-                                                            <td>
-                                                                <?php echo $row['menu']; ?>
-                                                            </td>
+                                                ?>
 
-                                                            <td>
-                                                                <?php echo $row['category']; ?>
-                                                            </td>
 
-                                                            <!-- <td>
-                                                                <?php echo "<a href=\"edit_request.php?id=$row[id]\">Edit</a> | <a href=\"delete_request.php?id=$row[id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a>"; ?>
-                                                            </td> -->
-                                                            <!--<td>
-                                                <a href="editpass.php?editid=<=$row['id'];?>" class="btn btn-xs btn-primary"><i class="feather icon-edit m-t-10 f-16 " ></i></a>
-                                                <a href="viewpass.php?viewid=<=$row['id'];?>" class="btn btn-xs btn-danger"><i class="feather icon-edit m-t-10 f-16 " ></i></a>
+                                                            <tr>
+                                                                <!-- <td><?php echo $i; ?></td> -->
+                                                                <td><?php echo $i; ?></td>
+                                                                <td><?php echo $row['reg_no']; ?></td>
+                                                                <td><?php echo $row['F_name'];
+                                                                    echo " ";
+                                                                    echo $row['L_name']; ?></td>
+                                                                <td><?php echo $row['mobile_no']; ?></td>
+                                                                <td><?php echo $row['email']; ?></td>
+                                                                <td><?php echo $row['roomtype']; ?></td>
 
-                                            </td>-->
-                                                        </tr>
-                                                    <?php $i++;
+                                                                <td>
+                                                                    <center><?php echo "<a  target='_blank' href=\"pdfshow4.php?ids=$row[id]\">View</a>"; ?></center>
+                                                                </td>
+                                                                <!-- <td><center><?php echo "<a  target='_blank' href=\"pdfshow2.php?ids=$row[id]\">View</a>"; ?></center></td> -->
+
+                                                                <td>
+                                                                    <button type="button" class="btn btn-success"><?php echo "<a style='outline-style: none; color:white;' href=\"entry.php?sr_no=$row[id]\" onClick=\"return confirm('Are you sure you want to Accept?')\">Allow</a>"; ?></button>
+                                           
+                                                                </td>
+
+
+
+
+                                                            </tr>
+
+                                                <?php $i++;
+                                                        }
                                                     }
-                                                    ?>
+                                                }
+                                                ?>
 
-
-                                                </table>
-                                            </div>
-                                        </div>
-
-
-
-
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Sr No.</th>
+                                                    <th>Register Number</th>
+                                                    <th>Name</th>
+                                                    <th>Mobile Number</th>
+                                                    <th>Email</th>
+                                                    <th>Type of Room</th>
+                                                    <th>Fee Reciept</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
+                            <br>
+                            <div class="card">
+                                <div class="card-header card-header-primary">
+                                    <h4 class="card-title">ALL FEES DETAILS </h4>
+                                    <!-- <p class="card-category">Complete your profile</p> -->
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive dt-responsive">
+                                        <table id="example1" class="table table-striped table-bordered" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th><b> Sr. No </b></th>
+                                                    <th><b>Register Number</b></th>
+                                                    <th><b>Name</b></th>
+                                                    <th><b>Type of Payment</b></th>
+                                                    <th><b>Account Holder's Name</b></th>
+                                                    <th><b>Account Holder's Phone Number</b></th>
+                                                    <th><b>Account Holder's Email Id</b></th>
+                                                    <th><b>Total fees Paid</b></th>
+                                                    <th><b>Fee Receipt</b></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <?php
+
+                                                $sql = "SELECT * from fees";
+                                                $result = $conn->query($sql);
+                                                $i = 1;
+
+                                                while ($row = $result->fetch_assoc()) {
+                                                    // if ($row['hostel_fee'] != '') {
+                                                    //     if ($row['feespaid'] == 'No') {
+
+                                                ?>
+
+
+                                                            <tr>
+                                                                <!-- <td><?php echo $i; ?></td> -->
+                                                                <td><?php echo $i; ?></td>
+                                                                <td><?php echo $row['regid']; ?></td>
+                                                                <td><?php echo $row['name'];?></td>
+                                                                <td>
+                                                                <?php echo $row['typeofpayment']; ?>
+                                                            </td>
+                                                            <td>
+                                                                <?php echo $row['Accholdername']; ?>
+                                                            </td>
+                                                            <td>
+                                                                <?php echo $row['Accholderno']; ?>
+                                                            </td>
+                                                            <td>
+                                                                <?php echo $row['Accholderemail']; ?>
+                                                            </td>
+                                                            <td>
+                                                                <?php echo $row['total']; ?>
+                                                            </td>
+                                                            <td>
+                                                                <?php echo "<a  target='_blank' href=\"../examples/pdfshow.php?ids=$row[id]\">View</a>"; ?>
+                                                            </td>
 
 
 
-                        </div>
+                                                            </tr>
 
-                    </div>
-                    <footer class="footer">
-                        <div class="container-fluid">
-                            <nav class="float-left">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            PICT HOSTEL
-                                        </a>
-                                    </li>
+                                                <?php $i++;
+                                                        }
+                                                //     }
+                                                // }
+                                                ?>
 
-                                </ul>
-                            </nav>
-                            <div class="copyright float-right" id="date">
-                                , made with <i class="material-icons">favorite</i> by
-                                <a href="#" target="_blank"> SuRd</a>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Sr No.</th>
+                                                    <th>Register Number</th>
+                                                    <th>Name</th>
+                                                    <th>Type of Payment</th>
+                                                    <th>Account Holder's Name</th>
+                                                    <th>Account Holder's Phone Number</th>
+                                                    <th>Account Holder's Email Id</th>
+                                                    <th>Total fees Paid</th>
+                                                    <th>Fee Receipt</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </footer>
-                    <script>
-                        const x = new Date().getFullYear();
-                        let date = document.getElementById('date');
-                        date.innerHTML = '&copy; ' + x + date.innerHTML;
-                    </script>
+                    </div>
                 </div>
             </div>
+            <!-- footer -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav class="float-left">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    PICT HOSTEL
+                                </a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                    <div class="copyright float-right" id="date">
+                        , made with <i class="material-icons">favorite</i> by
+                        <a href="#" target="_blank">SuRd</a>
+                    </div>
+                </div>
+            </footer>
+            <script>
+                const x = new Date().getFullYear();
+                let date = document.getElementById('date');
+                date.innerHTML = '&copy; ' + x + date.innerHTML;
+            </script>
+
+
+
 
             <!--   Core JS Files   -->
             <script src="../assets/js/core/jquery.min.js"></script>
@@ -386,7 +371,23 @@ if (isset($_SESSION['id'])) {
             <script src="../assets/js/plugins/bootstrap-notify.js"></script>
             <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
             <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
+            <!-- Material Dashboard DEMO methods, don't include it in your project! -->
             <script src="../assets/demo/demo.js"></script>
+            <!--Bootstrap for jquary table-->
+            <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+            <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+            <!--script for jquary table-->
+            <script>
+                $(document).ready(function() {
+                    $('#example').DataTable();
+                });
+            </script>
+            <script>
+                $(document).ready(function() {
+                    $('#example1').DataTable();
+                });
+            </script>
             <script>
                 $(document).ready(function() {
                     $().ready(function() {
@@ -401,7 +402,7 @@ if (isset($_SESSION['id'])) {
                         window_width = $(window).width();
 
                         $('.fixed-plugin a').click(function(event) {
-
+                            // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
                             if ($(this).hasClass('switch-trigger')) {
                                 if (event.stopPropagation) {
                                     event.stopPropagation();
@@ -549,13 +550,7 @@ if (isset($_SESSION['id'])) {
                     });
                 });
             </script>
-            <script>
-                $(document).ready(function() {
-                    // Javascript method's body can be found in assets/js/demos.js
-                    md.initDashboardPageCharts();
 
-                });
-            </script>
 </body>
 
 </html>

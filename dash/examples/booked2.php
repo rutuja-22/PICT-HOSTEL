@@ -95,17 +95,17 @@ if (isset($_POST['submit'])) {
                             <p>Leave Details</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./fees.php">
                             <i class="material-icons">bubble_chart</i>
                             <p>Fees Status</p>
                         </a>
                     </li>
-
+                   
                     <li class="nav-item active">
-                        <a class="nav-link" href="./bookhostel.php">
+                        <a class="nav-link" href="./checkout.php">
                             <i class="material-icons">content_copy</i>
-                            <p>Book Hostel</p>
+                            <p>Book Hostel </p>
                         </a>
                     </li>
                 </ul>

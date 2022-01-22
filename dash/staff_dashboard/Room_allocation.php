@@ -65,22 +65,23 @@ if (isset($_SESSION['id'])) {
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <!-- <li class="nav-item active">
+                   
+                    <li class="nav-item ">
                         <a class="nav-link" href="./Registered_Students.php">
                             <i class="material-icons">person</i>
                             <p>Registered Students</p>
-                        </a>
-                    </li> -->
-                    <li class="nav-item ">
-                        <a class="nav-link" href="#">
-                            <i class="material-icons">content_paste</i>
-                            <p>Attendance</p>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="./Registered_Students.php">
-                            <i class="material-icons">person</i>
-                            <p>Registered Students</p>
+                        <a class="nav-link" href="./room_reg.php">
+                            <i class="material-icons">store</i>
+                            <p>Room Registration</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#">
+                            <i class="material-icons">content_paste</i>
+                            <p>Students Attendance</p>
                         </a>
                     </li>
                     <li class="nav-item ">
@@ -90,7 +91,7 @@ if (isset($_SESSION['id'])) {
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="./feestatus.php">
                             <i class="material-icons">bubble_chart</i>
                             <p>Fees Status</p>
                         </a>

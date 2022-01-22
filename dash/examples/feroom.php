@@ -73,14 +73,14 @@ if (isset($_SESSION['id'])) {
                                     </a>
                                 </li>
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="./fees.php">
                                         <i class="material-icons">bubble_chart</i>
                                         <p>Fees Status</p>
                                     </a>
                                 </li>
 
-                                <li class="nav-item active ">
-                                    <a class="nav-link" href="./bookhostel.php">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="./checkout.php">
                                         <i class="material-icons">content_copy</i>
                                         <p>Book Hostel </p>
                                     </a>
@@ -120,7 +120,7 @@ if (isset($_SESSION['id'])) {
                                                 </p>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                                                
+
                                                 <a class="dropdown-item" href="logout.php">Log out</a>
                                             </div>
                                         </li>

@@ -60,7 +60,7 @@ if (isset($_POST['update'])) {
 <body class="light-edition">
     <div class="wrapper ">
         <div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/pict.jpeg">
-        
+
             <div class="logo"><a href="#" class="simple-text logo-normal">
                     PICT HOSTEL
                 </a></div>
@@ -91,14 +91,14 @@ if (isset($_POST['update'])) {
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="./fees.php">
                             <i class="material-icons">bubble_chart</i>
                             <p>Fees Status</p>
                         </a>
                     </li>
-                    
+
                     <li class="nav-item ">
-                        <a class="nav-link" href="./bookhostel.php">
+                        <a class="nav-link" href="./checkout.php">
                             <i class="material-icons">content_copy</i>
                             <p>Book Hostel </p>
                         </a>
@@ -122,9 +122,11 @@ if (isset($_POST['update'])) {
                     <div class="collapse navbar-collapse justify-content-end">
                         <form class="navbar-form">
                             <div class="input-group no-border">
-                                <a class="navbar-brand" href="javascript:void(0)"><strong>Welcome  <?php echo $row['F_name'];echo" ";echo $row['L_name']; ?></strong></a>
-                                    <div class="ripple-container">
-                                    </div>
+                                <a class="navbar-brand" href="javascript:void(0)"><strong>Welcome <?php echo $row['F_name'];
+                                                                                                    echo " ";
+                                                                                                    echo $row['L_name']; ?></strong></a>
+                                <div class="ripple-container">
+                                </div>
                             </div>
                         </form>
                         <ul class="navbar-nav">

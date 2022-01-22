@@ -1,4 +1,14 @@
 <?php
+include('config.php');
+
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+<?php
 include 'config.php';
 session_start();
 
@@ -19,22 +29,25 @@ if (isset($_SESSION['id'])) {
 
 if (isset($_POST['submit'])) {
     $id = $_SESSION['id'];
-    $sql = "Select * from bookings where ref_id='$id'";
+    $regid = $row['reg_no'];
+    // echo"$regid";
+    $sql = "Select * from sebookings where regid='$regid'";
     $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        if ($row['cancel_req'] == "No") {
-            $sql2 = "UPDATE bookings SET cancel_req='Yes' WHERE ref_id='$id'";
+    // echo"$result";
+    if ($result) {
+        $row1 = mysqli_fetch_assoc($result);
+        if ($row1['cancel_req'] == "No") {
+            $sql2 = "UPDATE sebookings SET cancel_req='Yes' WHERE regid='$regid'";
             $result2 = mysqli_query($conn, $sql2);
             if ($result2) {
-                $sql3 = "UPDATE registration SET  rooms_booked='' WHERE id='$id'";
+                $sql3 = "UPDATE registration SET  rooms_booked='' WHERE reg_no='$regid'";
                 $result3 = mysqli_query($conn, $sql3);
                 if ($result3) {
-                    echo "<script type='text/javascript'>alert('Your Request Was Sent! Thank You!!');document.location ='booked.php';</script>";
+                    echo "<script type='text/javascript'>alert('Your Request Was Sent! Thank You!!');document.location ='sebooked.php';</script>";
                 }
             }
         } else {
-            echo "<script type='text/javascript'>alert('error');document.location = 'booked.php';</script>";
+            echo "<script type='text/javascript'>alert('error');document.location = 'sebooked.php';</script>";
         }
     }
 }
@@ -65,6 +78,7 @@ if (isset($_POST['submit'])) {
 <body class="light-edition">
     <div class="wrapper">
         <div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/pict.jpeg">
+
             <div class="logo">
                 <a href="#" class="simple-text logo-normal"> PICT HOSTEL </a>
             </div>
@@ -100,7 +114,7 @@ if (isset($_POST['submit'])) {
                             <p>Fees Status</p>
                         </a>
                     </li>
-                   
+
                     <li class="nav-item active">
                         <a class="nav-link" href="./checkout.php">
                             <i class="material-icons">content_copy</i>
@@ -151,18 +165,19 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
             </nav>
-
             <!-- End Navbar -->
             <div class="content">
                 <div class="container-fluid">
-                    <form action="booked.php" method="post">
+                    <form action="sebooked.php" method="post">
                         <button type="submit" name="submit" class="btn btn-primary"><?php echo "<a style='outline-style: none; color:white;'onClick=\"return confirm('Are you sure you want to Cancel your booking?')\"> Cancel Booking </a>"; ?></button>
                     </form>
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-primary">
                                     <h4 class="card-title">Occupied Rooms</h4>
+                                    <!-- <p class="card-category">Complete your profile</p> -->
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive dt-responsive">
@@ -180,14 +195,12 @@ if (isset($_POST['submit'])) {
                                                 </tr>
                                             </thead>
                                             <tbody>
-
                                                 <?php
 
-                                                $sql = "SELECT * FROM bookings WHERE status='Occupied'";
+                                                $sql = "SELECT * FROM sebookings WHERE status='Occupied'";
                                                 $result = $conn->query($sql);
                                                 $i = 1;
-                                                while ($row = $result->fetch_assoc()) {
-                                                ?>
+                                                while ($row = $result->fetch_assoc()) { ?>
 
                                                     <tr>
                                                         <td><?php echo $i; ?></td>
@@ -199,11 +212,9 @@ if (isset($_POST['submit'])) {
                                                         <td><?php echo $row['city']; ?></td>
                                                     </tr>
 
-                                                <?php
-                                                    $i++;
+                                                <?php $i++;
                                                 }
                                                 ?>
-
                                             </tbody>
                                             <tfoot>
                                                 <tr>
@@ -214,6 +225,7 @@ if (isset($_POST['submit'])) {
                                                     <th>Registration Id</th>
                                                     <th>Occupied By</th>
                                                     <th>City</th>
+                                                    <!-- <th>Action</th> -->
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -228,7 +240,9 @@ if (isset($_POST['submit'])) {
                         <div class="container-fluid">
                             <nav class="float-left">
                                 <ul>
-                                    <li><a href="#"> PICT HOSTEL </a></li>
+                                    <li>
+                                        <a href="#"> PICT HOSTEL </a>
+                                    </li>
                                 </ul>
                             </nav>
                             <div class="copyright float-right" id="date">
@@ -237,7 +251,6 @@ if (isset($_POST['submit'])) {
                             </div>
                         </div>
                     </footer>
-
                     <script>
                         const x = new Date().getFullYear();
                         let date = document.getElementById("date");

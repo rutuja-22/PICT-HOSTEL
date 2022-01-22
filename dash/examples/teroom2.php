@@ -14,7 +14,7 @@ if (isset($_SESSION['id'])) {
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
         if ($row['rooms_booked'] != "") {
-            include('sebooked2.php');
+            include('tebooked2.php');
         } else if ($row['rooms_booked'] == "") {
 ?>
 
@@ -47,7 +47,7 @@ if (isset($_SESSION['id'])) {
             <body class="light-edition">
                 <div class="wrapper ">
                     <div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/pict.jpeg">
-                        -->
+                       
                         <div class="logo"><a href="#" class="simple-text logo-normal">
                                 PICT HOSTEL
                             </a></div>
@@ -78,14 +78,14 @@ if (isset($_SESSION['id'])) {
                                     </a>
                                 </li>
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="./fees.php">
+                                    <a class="nav-link" href="#">
                                         <i class="material-icons">bubble_chart</i>
                                         <p>Fees Status</p>
                                     </a>
                                 </li>
 
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="./checkout.php">
+                                <li class="nav-item active ">
+                                    <a class="nav-link" href="./bookhostel.php">
                                         <i class="material-icons">content_copy</i>
                                         <p>Book Hostel </p>
                                     </a>
@@ -245,41 +245,11 @@ if (isset($_SESSION['id'])) {
                                         if ($result) {
                                             echo "<script>alert('Req sended Successfully!!');document.location='./dashboard.php';</script>";
                                         } else {
-                                            echo "<script>alert('something went wrong!!');document.location='sebooked2.php';</script>";
+                                            echo "<script>alert('something went wrong!!');document.location='tebooked2.php';</script>";
                                         }
                                     }
                                     ?>
-                                    <?php
-                                    // if (isset($_POST['submit'])) {
-                                    //     $id = $_SESSION['id'];
-                                    //     $yname = $_POST['F_name'];
-                                    //     $regid = $_POST['reg_no'];
-                                    //     // $status = "Occupied";
-                                    //     $city = $_POST['city'];
-                                    //     $roomno = $_POST['room'];
-
-
-
-                                    // $sql = "Select * from bookings2 where room_no='$roomno'";
-                                    // $result = mysqli_query($conn, $sql);
-                                    // if (mysqli_num_rows($result) > 0) {
-                                    //     $row = mysqli_fetch_assoc($result);
-                                    //     if ($row['status'] == "Available") {
-                                    //         $sql1 = "UPDATE registration SET rooms_booked='$roomno' WHERE id='$id'";
-                                    //         $result1 = mysqli_query($conn, $sql1);
-                                    //         if ($result1) {
-                                    //             $sql2 = "UPDATE bookings2 SET ref_id='$id',name='$yname', regid='$regid' , city='$city', status='Occupied' WHERE room_no='$roomno'";
-                                    //             $result2 = mysqli_query($conn, $sql2);
-
-                                    //             echo "<script type='text/javascript'>alert('Room Booked Successfully !!!');document.location='dashboard.php';</script>";
-                                    //         } else {
-                                    //             echo "<script type='text/javascript'>alert('error');document.location='feroom2.php';</script>";
-                                    //         }
-                                    //     } else {
-                                    //         echo "<script type='text/javascript'>alert('Room is already booked!!!');document.location='feroom2.php';</script>";
-                                    //     }
-                                    // }
-                                    ?>
+                                
 
                                     <div class="content">
                                         <div class="container-fluid">
@@ -290,7 +260,7 @@ if (isset($_SESSION['id'])) {
                                                             <h4 class="card-title">Book Your Room Now</h4>
                                                         </div>
                                                         <div class="card-body">
-                                                            <form id="main" method="post" action="seroom2.php" enctype="multipart/form-data">
+                                                            <form id="main" method="post" action="teroom2.php" enctype="multipart/form-data">
                                                                 <div class="row">
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
@@ -318,7 +288,7 @@ if (isset($_SESSION['id'])) {
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <label class="bmd-label-floating">Enter the First year's CGPA</label>
+                                                                            <label class="bmd-label-floating">Enter the Second year's CGPA</label>
                                                                             <input type="text" class="form-control" name="cgpa" required="">
                                                                         </div>
                                                                     </div>
@@ -340,7 +310,7 @@ if (isset($_SESSION['id'])) {
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="col-md-6">
-                                                                        <label class="bmd-label-floating">Upload First Year's Marksheet here:-</label>
+                                                                        <label class="bmd-label-floating">Upload Second Year's Marksheet here:-</label>
                                                                     </div>
                                                                     <div class="col-md-6">
 

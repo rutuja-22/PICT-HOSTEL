@@ -12,19 +12,92 @@ if (isset($_SESSION['id'])) {
     }
 }
 ?>
-    <?php
-    include('config.php');
-    error_reporting(0);
-    if (isset($_GET['room_no'])) {
-        $room = $_GET['room_no'];
-        $sql = "UPDATE bookings SET ref_id=NULL,regid ='',name ='',city='',room_no = '$room' ,status='Available',details='It is having indoor toilet & contain AC',cancel_req='No' WHERE room_no='$room'";
-        if ($conn->query($sql)) {          
-            echo "<script type='text/javascript'>alert('Data is added !!!');document.location='refunding.php';</script>";
-        } else {
-            echo "error";
-        }
+<?php
+if (isset($_GET['room_no'])) {
+    $room = $_GET['room_no'];
+    $sql = "UPDATE bookings SET ref_id=NULL,regid ='',name ='',city='',room_no = '$room' ,status='Available',details='It is having indoor toilet & contain AC',cancel_req='No' WHERE room_no='$room'";
+    if ($conn->query($sql)) {
+        echo "<script type='text/javascript'>alert('Data is added !!!');document.location='refunding.php';</script>";
     } else {
-        $errorMsg = 'Could not Find Any Record';
+        echo "error";
     }
+} else {
+    $errorMsg = 'Could not Find Any Record';
+}
 
-    ?>
+?>
+
+<?php
+if (isset($_GET['room_no'])) {
+    $room = $_GET['room_no'];
+    $sql = "UPDATE bookings2 SET ref_id=NULL,regid ='',name ='',city='',room_no = '$room' ,status='Available',details='It is having indoor toilet & contain AC',cancel_req='No' WHERE room_no='$room'";
+    if ($conn->query($sql)) {
+        echo "<script type='text/javascript'>alert('Data is added !!!');document.location='refunding.php';</script>";
+    } else {
+        echo "error";
+    }
+} else {
+    $errorMsg = 'Could not Find Any Record';
+}
+
+?>
+
+<?php
+if (isset($_GET['room_no'])) {
+    $room = $_GET['room_no'];
+    $sql = "UPDATE sebookings SET ref_id=NULL,regid ='',name ='',city='',room_no = '$room' ,status='Available',details='It is having indoor toilet & contain AC',cancel_req='No' WHERE room_no='$room'";
+    if ($conn->query($sql)) {
+        echo "<script type='text/javascript'>alert('Data is added !!!');document.location='refunding.php';</script>";
+    } else {
+        echo "error";
+    }
+} else {
+    $errorMsg = 'Could not Find Any Record';
+}
+
+?>
+
+<?php
+if (isset($_GET['room_no'])) {
+    $room = $_GET['room_no'];
+    $sql = "UPDATE sebookings2 SET ref_id=NULL,regid ='',name ='',city='',room_no = '$room' ,status='Available',details='It is having indoor toilet & contain AC',cancel_req='No' WHERE room_no='$room'";
+    if ($conn->query($sql)) {
+        echo "<script type='text/javascript'>alert('Data is added !!!');document.location='refunding.php';</script>";
+    } else {
+        echo "error";
+    }
+} else {
+    $errorMsg = 'Could not Find Any Record';
+}
+
+?>
+
+<?php
+if (isset($_GET['room_no'])) {
+    $room = $_GET['room_no'];
+    $sql = "UPDATE tebookings SET ref_id=NULL,regid ='',name ='',city='',room_no = '$room' ,status='Available',details='It is having indoor toilet & contain AC',cancel_req='No' WHERE room_no='$room'";
+    if ($conn->query($sql)) {
+        echo "<script type='text/javascript'>alert('Data is added !!!');document.location='refunding.php';</script>";
+    } else {
+        echo "error";
+    }
+} else {
+    $errorMsg = 'Could not Find Any Record';
+}
+
+?>
+
+<?php
+if (isset($_GET['room_no'])) {
+    $room = $_GET['room_no'];
+    $sql = "UPDATE tebookings2 SET ref_id=NULL,regid ='',name ='',city='',room_no = '$room' ,status='Available',details='It is having indoor toilet & contain AC',cancel_req='No' WHERE room_no='$room'";
+    if ($conn->query($sql)) {
+        echo "<script type='text/javascript'>alert('Data is added !!!');document.location='refunding.php';</script>";
+    } else {
+        echo "error";
+    }
+} else {
+    $errorMsg = 'Could not Find Any Record';
+}
+
+?>

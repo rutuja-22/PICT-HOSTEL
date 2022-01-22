@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3310
--- Generation Time: Jan 13, 2022 at 01:56 PM
+-- Generation Time: Jan 22, 2022 at 07:27 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
 
@@ -46,7 +46,7 @@ CREATE TABLE `bookings` (
 
 INSERT INTO `bookings` (`id`, `ref_id`, `regid`, `name`, `city`, `room_no`, `status`, `details`, `booked_at`, `cancel_req`) VALUES
 (72, 55, 'C2K12345678', 'Jagruti Kad', 'Pune', '101A', 'Occupied', 'It is having indoor toilet & contain AC', '2022-01-04 15:15:36', 'No'),
-(73, NULL, '', '', '', '101B', 'Available', 'It is having indoor toilet & contain AC', '2022-01-04 15:32:28', 'No'),
+(73, 57, 'C2K19106306', 'Dhananjay Thosar', 'Pune', '101B', 'Occupied', 'It is having indoor toilet & contain AC', '2022-01-04 15:32:28', 'No'),
 (75, NULL, '', '', '', '102A', 'Available', 'It is having indoor toilet & contain AC', '2022-01-04 15:38:24', 'No'),
 (76, NULL, '', '', '', '102B', 'Available', 'It is having indoor toilet & contain AC', '2022-01-04 15:38:58', 'No'),
 (77, NULL, '', '', '', '103A', 'Available', 'It is having indoor toilet & contain AC', '2022-01-04 15:49:02', 'No'),
@@ -113,6 +113,40 @@ INSERT INTO `bookings2` (`id`, `ref_id`, `regid`, `name`, `city`, `room_no`, `st
 (43, NULL, '', '', '', '109B', 'Available', 'It is having indoor toilet & contain AC', '2022-01-07 21:40:09', 'No'),
 (44, NULL, '', '', '', '110A', 'Available', 'It is having indoor toilet & contain AC', '2022-01-07 21:40:18', 'No'),
 (45, NULL, '', '', '', '110B', 'Available', 'It is having indoor toilet & contain AC', '2022-01-07 21:40:25', 'No');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fees`
+--
+
+CREATE TABLE `fees` (
+  `id` int(25) NOT NULL,
+  `ref_id` int(25) NOT NULL,
+  `regid` varchar(250) NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `typeofpayment` varchar(250) NOT NULL,
+  `Accholdername` varchar(250) NOT NULL,
+  `Accholderno` varchar(250) NOT NULL,
+  `Accholderemail` varchar(250) NOT NULL,
+  `total` varchar(250) NOT NULL,
+  `receipt` varchar(250) NOT NULL,
+  `paidat` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fees`
+--
+
+INSERT INTO `fees` (`id`, `ref_id`, `regid`, `name`, `typeofpayment`, `Accholdername`, `Accholderno`, `Accholderemail`, `total`, `receipt`, `paidat`) VALUES
+(7, 57, 'C2K19106306', 'Dhananjay Thosar', 'Credit Card', 'Dhananjay Thosar', '08390833406', 'dhananjaythosar2002@gmail.com', '25000.00', 'fees.pdf', '2022-01-14 09:34:27'),
+(8, 57, 'C2K19106306', 'Dhananjay Thosar', 'Debit Card', 'Dhananjay Thosar', '08390833406', 'dhananjaythosar2002@gmail.com', '0.00', 'generateReport (1).pdf', '2022-01-14 18:18:41'),
+(9, 57, 'C2K19106306', 'Dhananjay Thosar', '', 'Dhananjay Thosar', '08390833406', 'dhananjaythosar2002@gmail.com', '100000.00', 'SY RESULT.pdf', '2022-01-20 18:50:31'),
+(10, 57, 'C2K19106306', 'Dhananjay Thosar', 'Credit Card', 'Dhananjay Thosar', '08390833406', 'dhananjaythosar2002@gmail.com', '30000.00', 'income.pdf', '2022-01-20 20:02:01'),
+(11, 61, 'C2K19106385', 'Dhananjay Thosar', '', 'Dhananjay Thosar', '08390833406', 'dhananjaythosar2002@gmail.com', '100000.00', 'generateReport (1).pdf', '2022-01-22 11:01:11'),
+(12, 61, 'C2K19106385', 'Dhananjay Thosar', '', 'thosardhanu2@gmail.com', '08390833406', 'dhananjaythosar2002@gmail.com', '20000.00', 'SY_Marksheet.pdf', '2022-01-22 11:12:11'),
+(13, 61, 'C2K19106385', 'Dhananjay Thosar', 'Credit Card', 'Kamlakar Thosar', '8390833406', 'dhananjaythosar2002@gmail.com', '50000.00', 'SY_Marksheet.pdf', '2022-01-22 11:27:36'),
+(14, 57, 'C2K19106306', 'Dhananjay Thosar', 'UPI Payment', 'Dhananjay Thosar', '08390833406', 'dhananjaythosar2002@gmail.com', '20000.00', 'Guarantee.pdf', '2022-01-22 11:40:21');
 
 -- --------------------------------------------------------
 
@@ -309,8 +343,9 @@ INSERT INTO `registration` (`id`, `F_name`, `L_name`, `reg_no`, `mobile_no`, `Fa
 (54, 'Urmi', 'Matade', 'C2k20209888', '9370330480', 'Changdeo', '9988776655', 'female', 'urmicm07@gmail.com', 'FE', 'COMP', 'Indian', 'MAHARASHTRA', 'Aurangabad', 423701, 'bb58171d73b97512d6a672298a8a5859', 'Yes', 3, '895606', '2022-01-06 14:37:46', 'Adhar card', 'js_report.pdf', 'js_report-1641460066.pdf', '', 'No', '112A', ''),
 (55, 'Jagruti', 'Kad', 'C2K12345678', '1234567890', 'Dipak', '1234567890', 'male', 'sakshikad25@gmail.com', 'FE', 'COMP', 'Indian', 'Maharashtra', 'Pune', 440001, 'd6b9f1424dbc3edb76f4bcd99965e0eb', 'Yes', 3, '412666', '2022-01-10 20:11:04', 'Adhar card', 'SWOT.pdf', 'SWOT.pdf', '', 'No', '101A', ''),
 (56, 'Sakshi', 'Kad', 'E2k19103676', '1234567890', 'Dipak', '1234567890', 'female', 'sakshikad51@gmail.com', 'FE', 'ENTC', 'Indian', 'Maharashtra', 'Pune', 440001, 'f08d753ba0ae5e4afbd83cd9a7b502e1', 'Yes', 3, '579939', '2022-01-11 18:12:51', 'Adhar card', 'SWOT.pdf', 'SWOT.pdf', '', 'No', '', ''),
-(57, 'Dhananjay', 'Thosar', 'C2K19106306', '8390833406', 'Kamlakar', '9604029326', 'male', 'dhananjaythosar2002@gmail.com', 'FE', 'COMP', 'Indian', 'Maharashtra', 'Pune', 440001, '051ff33015a1bfa27aef002344e4410b', 'Yes', 3, '651236', '2022-01-12 18:50:45', 'Adhar card', 'Dhananjay Thosar-Resume.pdf', 'generateReport (1).pdf', '', 'No', '', ''),
-(59, 'Dhananjay', 'Thosar', 'E2K19630610', '8390833406', 'Kamlakar', '9604029326', 'male', 'mess@gmail.com', 'FE', 'COMP', 'Indian', 'Maharashtra', 'Pune', 440001, '3aec5b3bc2bc68ac1938d596f667381a', 'Yes', 4, '249588', '2022-01-13 15:40:54', 'Adhar card', '', '', '', 'No', '', '');
+(57, 'Dhananjay', 'Thosar', 'C2K19106306', '8390833406', 'Kamlakar', '9604029326', 'male', 'dhananjaythosar2002@gmail.com', 'FE', 'COMP', 'Indian', 'Maharashtra', 'Pune', 440001, '051ff33015a1bfa27aef002344e4410b', 'Yes', 3, '651236', '2022-01-12 18:50:45', 'Adhar card', 'Dhananjay Thosar-Resume.pdf', 'generateReport (1).pdf', '', 'No', '101B', 'Attached'),
+(59, 'Dhananjay', 'Thosar', 'E2K19630610', '8390833406', 'Kamlakar', '9604029326', 'male', 'mess@gmail.com', 'FE', 'COMP', 'Indian', 'Maharashtra', 'Pune', 440001, '3aec5b3bc2bc68ac1938d596f667381a', 'Yes', 4, '249588', '2022-01-13 15:40:54', 'Adhar card', '', '', '', 'No', '', ''),
+(61, 'Dhananjay', 'Thosar', 'C2K19106385', '8390833406', 'Kamlakar', '9604029326', 'male', 'thosardhanu2@gmail.com', 'TE', 'COMP', 'Indian', 'Maharashtra', 'Pune', 440001, '051ff33015a1bfa27aef002344e4410b', 'Yes', 3, '704739', '2022-01-20 18:54:49', 'Adhar card', 'SY RESULT.pdf', 'generateReport (1).pdf', '', 'No', '', '');
 
 -- --------------------------------------------------------
 
@@ -320,22 +355,16 @@ INSERT INTO `registration` (`id`, `F_name`, `L_name`, `reg_no`, `mobile_no`, `Fa
 
 CREATE TABLE `roomchange` (
   `id` int(25) NOT NULL,
+  `ref_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `regid` varchar(255) NOT NULL,
   `city` varchar(255) NOT NULL,
   `cgpa` varchar(50) NOT NULL,
   `room1` varchar(50) NOT NULL,
   `room2` varchar(50) NOT NULL,
-  `room3` varchar(50) NOT NULL,
+  `cgpafile` varchar(255) NOT NULL,
   `req_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `roomchange`
---
-
-INSERT INTO `roomchange` (`id`, `name`, `regid`, `city`, `cgpa`, `room1`, `room2`, `room3`, `req_at`) VALUES
-(1, 'Abhishek Thosar', 'C2K19106309', '9.02', 'Pune', '201B', '202A', '202B', '2021-12-11 16:04:46');
 
 -- --------------------------------------------------------
 
@@ -381,7 +410,7 @@ CREATE TABLE `sebookings` (
 --
 
 INSERT INTO `sebookings` (`id`, `ref_id`, `regid`, `name`, `city`, `room_no`, `status`, `details`, `booked_at`, `cancel_req`) VALUES
-(41, NULL, '', '', '', '101A', 'Available', 'It is having indoor toilet & contain AC', '2022-01-07 21:45:26', 'No'),
+(41, NULL, 'C2k19103676', 'Kirti Kad', 'Pune', '101A', 'Occupied', 'It is having indoor toilet & contain AC', '2022-01-07 21:45:26', 'No'),
 (42, NULL, '', '', '', '101B', 'Available', 'It is having indoor toilet & contain AC', '2022-01-07 21:45:32', 'No'),
 (43, NULL, '', '', '', '102A', 'Available', 'It is having indoor toilet & contain AC', '2022-01-07 21:45:38', 'No'),
 (44, NULL, '', '', '', '102B', 'Available', 'It is having indoor toilet & contain AC', '2022-01-07 21:46:00', 'No'),
@@ -504,6 +533,12 @@ ALTER TABLE `bookings2`
   ADD KEY `fk1` (`ref_id`);
 
 --
+-- Indexes for table `fees`
+--
+ALTER TABLE `fees`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `leave_details`
 --
 ALTER TABLE `leave_details`
@@ -591,6 +626,12 @@ ALTER TABLE `bookings2`
   MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
+-- AUTO_INCREMENT for table `fees`
+--
+ALTER TABLE `fees`
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
 -- AUTO_INCREMENT for table `leave_details`
 --
 ALTER TABLE `leave_details`
@@ -618,13 +659,13 @@ ALTER TABLE `pincode`
 -- AUTO_INCREMENT for table `registration`
 --
 ALTER TABLE `registration`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `roomchange`
 --
 ALTER TABLE `roomchange`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `sebookings`

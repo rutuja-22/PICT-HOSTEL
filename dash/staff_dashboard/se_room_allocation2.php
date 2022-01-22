@@ -2,13 +2,25 @@
 include 'config.php';
 session_start();
 
-if (!isset($_SESSION['id'])) {
-    header('Location: login.php');
-}
+// if (!isset($_SESSION['id'])) {
+//     header('Location: login.php');
+// }
 
 if (isset($_SESSION['id'])) {
     $id = $_SESSION['id'];
     $sql = "select * from registration where id=" . $id;
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        $row1 = mysqli_fetch_assoc($result);
+    } else {
+        $errorMsg = 'Could not Find Any Record';
+    }
+}
+
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $sql = "select * from roomchange where id='$id'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
@@ -18,27 +30,40 @@ if (isset($_SESSION['id'])) {
 }
 
 if (isset($_POST['submit'])) {
-    $id = $_SESSION['id'];
-    $sql = "Select * from bookings where ref_id='$id'";
+    // $id = $_GET['id'];
+    // $ref_id= $row['ref_id'];
+    $yname = $_POST['F_name'];
+    $regid = $_POST['reg_no'];
+    // $status = "Occupied";
+    $city = $_POST['city'];
+    $roomno = $_POST['room'];
+    // echo "$city";
+
+    $sql = "Select * from sebookings2 where room_no='$roomno'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        if ($row['cancel_req'] == "No") {
-            $sql2 = "UPDATE bookings SET cancel_req='Yes' WHERE ref_id='$id'";
-            $result2 = mysqli_query($conn, $sql2);
-            if ($result2) {
-                $sql3 = "UPDATE registration SET  rooms_booked='' WHERE id='$id'";
-                $result3 = mysqli_query($conn, $sql3);
-                if ($result3) {
-                    echo "<script type='text/javascript'>alert('Your Request Was Sent! Thank You!!');document.location ='booked.php';</script>";
+        $row2 = mysqli_fetch_assoc($result);
+        if ($row2['status'] == "Available") {
+            $sql1 = "UPDATE registration SET rooms_booked='$roomno' WHERE reg_no='$regid'";
+            $result1 = mysqli_query($conn, $sql1);
+            if ($result1) {
+                $sql2 = "UPDATE sebookings2 SET name='$yname',regid='$regid',city='$city',status='Occupied' WHERE room_no='$roomno'";
+                $result2 = mysqli_query($conn, $sql2);
+                if ($result2) {
+                    $sql3 = "DELETE FROM roomchange WHERE regid='$regid'";
+                    $result3 = mysqli_query($conn, $sql3);
+                    // echo "$result3";
+                    echo "<script type='text/javascript'>alert('Room Booked Successfully !!!');document.location='se_room_reg.php';</script>";
                 }
+            } else {
+                echo "<script type='text/javascript'>alert('error');document.location='se_room_allocation2.php';</script>";
             }
         } else {
-            echo "<script type='text/javascript'>alert('error');document.location = 'booked.php';</script>";
+            echo "<script type='text/javascript'>alert('Room is already booked!!!');document.location='se_room_allocation2.php';</script>";
         }
     }
-}
-?>
+} ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -65,6 +90,7 @@ if (isset($_POST['submit'])) {
 <body class="light-edition">
     <div class="wrapper">
         <div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/pict.jpeg">
+
             <div class="logo">
                 <a href="#" class="simple-text logo-normal"> PICT HOSTEL </a>
             </div>
@@ -76,35 +102,53 @@ if (isset($_POST['submit'])) {
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./user.php">
-                            <i class="material-icons">person</i>
-                            <p>Profile</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
+                    <li class="nav-item ">
                         <a class="nav-link" href="#">
                             <i class="material-icons">content_paste</i>
                             <p>Attendance</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./leavedetails.php">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./Registered_Students.php">
+                            <i class="material-icons">person</i>
+                            <p>Registered Students</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./room_reg.php">
+                            <i class="material-icons">store</i>
+                            <p>Room Registration</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#">
+                            <i class="material-icons">content_paste</i>
+                            <p>Students Attendance</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./sleavedetails.php">
                             <i class="material-icons">library_books</i>
                             <p>Leave Details</p>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="./fees.php">
+                        <a class="nav-link" href="./feestatus.php">
                             <i class="material-icons">bubble_chart</i>
                             <p>Fees Status</p>
                         </a>
                     </li>
-                   
+
                     <li class="nav-item active">
-                        <a class="nav-link" href="./checkout.php">
-                            <i class="material-icons">content_copy</i>
-                            <p>Book Hostel </p>
+                        <a class="nav-link" href="./selection.php">
+                            <i class="material-icons">store</i>
+                            <p>Allocated Rooms</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./refunding.php">
+                            <i class="material-icons">circle</i>
+                            <p>Refund</p>
                         </a>
                     </li>
                 </ul>
@@ -127,11 +171,7 @@ if (isset($_POST['submit'])) {
                     <div class="collapse navbar-collapse justify-content-end">
                         <form class="navbar-form">
                             <div class="input-group no-border">
-                                <a class="navbar-brand" href="javascript:void(0)"><strong>Welcome
-                                        <?php echo $row['F_name'];
-                                        echo " ";
-                                        echo $row['L_name']; ?>
-                                    </strong></a>
+                                <a class="navbar-brand" href="javascript:void(0)"><strong>Welcome <?php echo $row1['email']; ?></strong></a>
                                 <div class="ripple-container"></div>
                             </div>
                         </form>
@@ -151,84 +191,97 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
             </nav>
-
             <!-- End Navbar -->
             <div class="content">
                 <div class="container-fluid">
-                    <form action="booked.php" method="post">
-                        <button type="submit" name="submit" class="btn btn-primary"><?php echo "<a style='outline-style: none; color:white;'onClick=\"return confirm('Are you sure you want to Cancel your booking?')\"> Cancel Booking </a>"; ?></button>
-                    </form>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header card-header-primary">
-                                    <h4 class="card-title">Occupied Rooms</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive dt-responsive">
-                                        <table id="example" class="table table-striped table-bordered" style="width: 100%">
-                                            <thead>
-                                                <tr>
-                                                    <th>Sr No.</th>
-                                                    <th>Room No</th>
-                                                    <th>Status</th>
-                                                    <th>Details</th>
-                                                    <th>Registration Id</th>
-                                                    <th>Occupied By</th>
-                                                    <th>City</th>
-                                                    <!-- <th>Action</th> -->
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                    <div class="content">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="card">
+                                        <div class="card-header card-header-primary">
+                                            <h4 class="card-title">Book Your Room Now</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <form id="main" method="post" action="se_room_allocation2.php" enctype="multipart/form-data">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Your Name</label>
+                                                            <input type="text" class="form-control" name="F_name" value="<?php echo $row['name']; ?>" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Registration ID</label>
+                                                            <input type="text" class="form-control" name="reg_no" value="<?php echo $row['regid']; ?>" required="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">City</label>
+                                                            <input type="text" class="form-control" name="city" value="<?php echo $row['city']; ?>" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">CGPA</label>
+                                                            <input type="text" class="form-control" name="cgpa" value="<?php echo $row['cgpa']; ?>" required="">
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                                <?php
 
-                                                $sql = "SELECT * FROM bookings WHERE status='Occupied'";
-                                                $result = $conn->query($sql);
-                                                $i = 1;
-                                                while ($row = $result->fetch_assoc()) {
-                                                ?>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">1st Preferance of room</label>
+                                                            <input type="text" class="form-control" name="room1" value="<?php echo $row['room1']; ?>" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">2nd Preferance of room</label>
+                                                            <input type="text" class="form-control" name="room2" value="<?php echo $row['room2']; ?>" required="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Allocate Room</label>
+                                                            <input type="text" class="form-control" name="room" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button type="submit" name="submit" class="btn btn-primary pull-right">Allocate</button>
+                                                    </div>
+                                                </div>
 
-                                                    <tr>
-                                                        <td><?php echo $i; ?></td>
-                                                        <td><?php echo $row['room_no']; ?></td>
-                                                        <td><?php echo $row['status']; ?></td>
-                                                        <td><?php echo $row['details']; ?></td>
-                                                        <td><?php echo $row['regid']; ?></td>
-                                                        <td><?php echo $row['name']; ?></td>
-                                                        <td><?php echo $row['city']; ?></td>
-                                                    </tr>
+                                                <!-- <div class="clearfix"></div> -->
+                                            </form>
 
-                                                <?php
-                                                    $i++;
-                                                }
-                                                ?>
-
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>Sr No.</th>
-                                                    <th>Room No</th>
-                                                    <th>Status</th>
-                                                    <th>Details</th>
-                                                    <th>Registration Id</th>
-                                                    <th>Occupied By</th>
-                                                    <th>City</th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        </section>
                     </div>
+
+
 
                     <!-- footer -->
                     <footer class="footer">
                         <div class="container-fluid">
                             <nav class="float-left">
                                 <ul>
-                                    <li><a href="#"> PICT HOSTEL </a></li>
+                                    <li>
+                                        <a href="#"> PICT HOSTEL </a>
+                                    </li>
                                 </ul>
                             </nav>
                             <div class="copyright float-right" id="date">
@@ -237,7 +290,6 @@ if (isset($_POST['submit'])) {
                             </div>
                         </div>
                     </footer>
-
                     <script>
                         const x = new Date().getFullYear();
                         let date = document.getElementById("date");
